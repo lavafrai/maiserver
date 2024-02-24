@@ -2,7 +2,7 @@ package ru.lavafrai.maiserver.parser
 
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import ru.lavafrai.maiapp.data.parser.parseGroupsList
+import ru.lavafrai.maiapp.data.models.schedule.Schedule
 import ru.lavafrai.maiserver.COOKIES_CONSTANT
 import ru.lavafrai.maiserver.models.Group
 import java.io.IOException
@@ -12,6 +12,9 @@ class Parser {
         return parseGroupsList(this)
     }
 
+    fun parseScheduleOrException(group: Group): Schedule {
+        return parseSchedule(group)
+    }
 
     fun getPage(url: String, args: Map<String, String> = mapOf(), attemptsLeft: Int = 50): Document {
         var builtUrl = url

@@ -1,8 +1,7 @@
-package ru.lavafrai.maiapp.data.parser
+package ru.lavafrai.maiserver.parser
 
 import ru.lavafrai.maiserver.GROUPS_PAGE_URL
 import ru.lavafrai.maiserver.models.Group
-import ru.lavafrai.maiserver.parser.Parser
 
 fun parseGroupsList(parser: Parser): List<Group> {
     val page = parser.getPage(GROUPS_PAGE_URL)
