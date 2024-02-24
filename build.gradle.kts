@@ -12,10 +12,11 @@ group = "ru.lavafrai"
 version = "0.0.1"
 
 application {
-    mainClass.set("ru.lavafrai.ApplicationKt")
+    mainClass.set("ru.lavafrai.maiserver.ApplicationKt")
 
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
+
 }
 
 repositories {
