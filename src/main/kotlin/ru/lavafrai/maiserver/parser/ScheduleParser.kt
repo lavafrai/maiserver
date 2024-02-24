@@ -6,6 +6,7 @@ import ru.lavafrai.maiapp.data.models.group.GroupId
 import ru.lavafrai.maiapp.data.models.schedule.*
 import ru.lavafrai.maiapp.data.models.schedule.network.getSchedulePage
 import ru.lavafrai.maiserver.models.Group
+import ru.lavafrai.maiserver.utils.mapThreaded
 import java.time.DayOfWeek
 import java.util.*
 
@@ -93,7 +94,7 @@ fun subParseLesson(page: Element): ScheduleLesson {
 fun parseScheduleParseWeeks(groupId: GroupId): List<ScheduleWeekId> {
     val page = getSchedulePage(mapOf("group" to groupId.name))
 
-    return page.select("#collapseWeeks").select(".list-group-item").map { parseScheduleWeek(it.text()) }
+    return page.select("#collapseWeeks").select(".list-group-item").mapThreaded { parseScheduleWeek(it.text()) }
 }
 
 
