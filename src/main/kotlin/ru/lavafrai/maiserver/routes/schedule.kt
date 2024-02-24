@@ -17,11 +17,17 @@ fun Route.schedule() {
         val parser = Parser.getInstance()
 
         get {
-            val groupName = call.parameters["group"]!!
-            val schedule =  cache.getExpirableOrNull<Schedule>(CacheKeys.SCHEDULE_PREFIX + "." + groupName) ?:
-                            cache.storeExpirableAndReturn(CacheKeys.SCHEDULE_PREFIX + "." + groupName, parser.parseScheduleOrException(Group(groupName)))
 
-            call.respondText(Json.encodeToString(schedule))
+            run {
+                val groupName = call.parameters["group"]!!
+                val schedule = cache.getExpirableOrNull<Schedule>(CacheKeys.SCHEDULE_PREFIX + "." + groupName)
+                    ?: cache.storeExpirableAndReturn(
+                        CacheKeys.SCHEDULE_PREFIX + "." + groupName,
+                        parser.parseScheduleOrException(Group(groupName))
+                    )
+
+                call.respondText(Json.encodeToString(schedule))
+            }
         }
     }
 }

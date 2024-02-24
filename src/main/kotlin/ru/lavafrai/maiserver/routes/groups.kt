@@ -17,12 +17,17 @@ fun Route.groups() {
         val parser = Parser.getInstance()
 
         get {
-            call.respond(
-                Json.encodeToString(
-                    cache.getExpirableOrNull<List<Group>>(CacheKeys.GROUPS_LIST) ?:
-                        cache.storeExpirableAndReturn(CacheKeys.GROUPS_LIST, parser.parseGroupsListOrException(), expired = LocalDateTime.now().plusDays(14))
+            run {
+                call.respond(
+                    Json.encodeToString(
+                        cache.getExpirableOrNull<List<Group>>(CacheKeys.GROUPS_LIST) ?: cache.storeExpirableAndReturn(
+                            CacheKeys.GROUPS_LIST,
+                            parser.parseGroupsListOrException(),
+                            expired = LocalDateTime.now().plusDays(14)
+                        )
+                    )
                 )
-            )
+            }
         }
     }
 }
