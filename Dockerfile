@@ -8,6 +8,7 @@ WORKDIR /opt/app
 # RUN apk add --no-cache ffmpeg
 # RUN apk add build-base linux-headers
 
+RUN chmod +x gradlew
 RUN ./gradlew buildFatJar
 
 # RUN rm -r /opt/tmp
