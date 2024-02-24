@@ -4,5 +4,8 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-open class SerializableModel {
+class Group(
+    val name: String
+): SerializableModel() {
+
 }
