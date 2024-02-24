@@ -4,4 +4,4 @@ const val COOKIES_CONSTANT = "schedule-group-cache=2.0; PHPSESSID=r4E6P76coheirR
 const val SCHEDULE_PAGE_URL = "https://mai.ru/education/studies/schedule/index.php"
 const val GROUPS_PAGE_URL = "https://mai.ru/education/studies/schedule/groups.php"
 const val PROJECT_DONATION_URL = "https://pay.cloudtips.ru/p/e930707c/"
-const val DEFAULT_CACHE_EXPIRE_HOURS = 24L
+const val DEFAULT_CACHE_EXPIRE_HOURS = 48L
