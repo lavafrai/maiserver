@@ -8,8 +8,8 @@ import kotlinx.serialization.json.Json
 import ru.lavafrai.maiserver.cache.Cache
 import ru.lavafrai.maiserver.cache.CacheKeys
 import ru.lavafrai.maiserver.models.Group
-import ru.lavafrai.maiserver.models.SerializableModel
 import ru.lavafrai.maiserver.parser.Parser
+import java.time.LocalDateTime
 
 fun Route.groups() {
     route("/groups") {
@@ -20,7 +20,7 @@ fun Route.groups() {
             call.respond(
                 Json.encodeToString(
                     cache.getExpirableOrNull<List<Group>>(CacheKeys.GROUPS_LIST) ?:
-                        cache.storeExpirableAndReturn(CacheKeys.GROUPS_LIST, parser.parseGroupsListOrException())
+                        cache.storeExpirableAndReturn(CacheKeys.GROUPS_LIST, parser.parseGroupsListOrException(), expired = LocalDateTime.now().plusDays(14))
                 )
             )
         }
