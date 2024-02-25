@@ -36,4 +36,5 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.3.2")
     implementation("org.jsoup:jsoup:1.10.2")
+    implementation("io.ktor:ktor-server-html-builder:$ktor_version")
 }

@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 
 
 class Cache {
-    private val cache: MutableMap<String, Cacheable<*>> = HashMap()
+    val cache: MutableMap<String, Cacheable<*>> = HashMap()
 
     fun <T> storeExpirable(key: String, data: T, expired: LocalDateTime = LocalDateTime.now().plusHours(DEFAULT_CACHE_EXPIRE_HOURS)) {
         synchronized(this) {
