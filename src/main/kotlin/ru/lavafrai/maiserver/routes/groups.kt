@@ -7,6 +7,8 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import ru.lavafrai.maiserver.cache.Cache
 import ru.lavafrai.maiserver.cache.CacheKeys
+import ru.lavafrai.maiserver.metrics.MetricName
+import ru.lavafrai.maiserver.metrics.Metrics
 import ru.lavafrai.maiserver.models.Group
 import ru.lavafrai.maiserver.parser.Parser
 import java.time.LocalDateTime
@@ -17,17 +19,17 @@ fun Route.groups() {
         val parser = Parser.getInstance()
 
         get {
-            run {
-                call.respond(
-                    Json.encodeToString(
-                        cache.getExpirableOrNull<List<Group>>(CacheKeys.GROUPS_LIST) ?: cache.storeExpirableAndReturn(
-                            CacheKeys.GROUPS_LIST,
-                            parser.parseGroupsListOrException(),
-                            expired = LocalDateTime.now().plusDays(14)
-                        )
+            Metrics.getInstance().incrementMetric(MetricName.GROUPS_LIST_GET)
+
+            call.respond(
+                Json.encodeToString(
+                    cache.getExpirableOrNull<List<Group>>(CacheKeys.GROUPS_LIST) ?: cache.storeExpirableAndReturn(
+                        CacheKeys.GROUPS_LIST,
+                        parser.parseGroupsListOrException(),
+                        expired = LocalDateTime.now().plusDays(14)
                     )
                 )
-            }
+                )
         }
     }
 }

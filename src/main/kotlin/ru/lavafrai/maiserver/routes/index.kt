@@ -7,6 +7,7 @@ import io.ktor.server.routing.*
 import kotlinx.html.body
 import kotlinx.html.br
 import ru.lavafrai.maiserver.cache.Cache
+import ru.lavafrai.maiserver.metrics.Metrics
 
 fun Route.index() {
     get ("/") {
@@ -18,6 +19,9 @@ fun Route.index() {
                 br()
                 +"Cache: "
                 +Cache.getInstance().cache.keys.toString()
+                br()
+                +"Metrics: "
+                +Metrics.getInstance().toString()
             }
         }
     }

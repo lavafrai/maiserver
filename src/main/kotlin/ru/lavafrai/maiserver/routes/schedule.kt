@@ -8,6 +8,8 @@ import kotlinx.serialization.json.Json
 import ru.lavafrai.maiapp.data.models.schedule.Schedule
 import ru.lavafrai.maiserver.cache.Cache
 import ru.lavafrai.maiserver.cache.CacheKeys
+import ru.lavafrai.maiserver.metrics.MetricName
+import ru.lavafrai.maiserver.metrics.Metrics
 import ru.lavafrai.maiserver.models.Group
 import ru.lavafrai.maiserver.parser.Parser
 
@@ -16,18 +18,17 @@ fun Route.schedule() {
         val cache = Cache.getInstance()
         val parser = Parser.getInstance()
 
-        get {
+    get {
+            Metrics.getInstance().incrementMetric(MetricName.SCHEDULE_GET)
 
-            run {
-                val groupName = call.parameters["group"]!!
-                val schedule = cache.getExpirableOrNull<Schedule>(CacheKeys.SCHEDULE_PREFIX + "." + groupName)
-                    ?: cache.storeExpirableAndReturn(
-                        CacheKeys.SCHEDULE_PREFIX + "." + groupName,
-                        parser.parseScheduleOrException(Group(groupName))
-                    )
+            val groupName = call.parameters["group"]!!
+            val schedule = cache.getExpirableOrNull<Schedule>(CacheKeys.SCHEDULE_PREFIX + "." + groupName)
+                ?: cache.storeExpirableAndReturn(
+                    CacheKeys.SCHEDULE_PREFIX + "." + groupName,
+                    parser.parseScheduleOrException(Group(groupName))
+                )
 
-                call.respondText(Json.encodeToString(schedule))
-            }
+            call.respondText(Json.encodeToString(schedule))
         }
     }
 }
