@@ -15,7 +15,7 @@ fun parseSchedule(group: Group) : Schedule {
     val groupId = GroupId(group.name)
     val weeks = parseScheduleParseWeeks(groupId)
 
-    val schedules = weeks.map {
+    val schedules = weeks.mapThreaded {
         parseScheduleParseWeek(groupId, it)
     }
 
@@ -80,13 +80,13 @@ fun subParseLesson(page: Element): ScheduleLesson {
 
     val teacher: String
     val location: String
-    if (page.child(1).children().size == 3) {
-        teacher = page.child(1).child(1).text()
-        location = page.child(1).child(2).text()
-    } else {
-        teacher = ""
-        location = page.child(1).child(1).text()
-    }
+
+    val teacherFinder = "(?>(?>(?!\\d)\\S)+\\s){3}".toRegex()
+    teacher = teacherFinder.findAll(page.child(1).text()).joinToString(separator = " / ") { it.value.trim().lowercase().capitalizeWords() }
+
+    //println(page.child(1).text())
+
+    location = page.child(1).select(".fa-map-marker-alt").joinToString(separator = " / ") { it.parent().text() }
 
     return ScheduleLesson(name, timeRange, type, teacher, location)
 }
@@ -97,4 +97,6 @@ fun parseScheduleParseWeeks(groupId: GroupId): List<ScheduleWeekId> {
     return page.select("#collapseWeeks").select(".list-group-item").mapThreaded { parseScheduleWeek(it.text()) }
 }
 
+
+fun String.capitalizeWords(): String = split(" ").joinToString(" ") { it.capitalize() }
 

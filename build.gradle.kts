@@ -19,6 +19,7 @@ application {
 
 }
 
+
 repositories {
     mavenCentral()
 }
@@ -38,4 +39,6 @@ dependencies {
     implementation("org.jsoup:jsoup:1.10.2")
     implementation("io.ktor:ktor-server-html-builder:$ktor_version")
     implementation("io.ktor:ktor-server-metrics-micrometer:$ktor_version")
+
+    implementation("me.tongfei:progressbar:0.10.0")
 }

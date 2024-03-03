@@ -29,7 +29,7 @@ fun Route.groups() {
                         expired = LocalDateTime.now().plusDays(14)
                     )
                 )
-                )
+            )
         }
     }
 }
