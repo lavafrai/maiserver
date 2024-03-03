@@ -3,6 +3,9 @@ package ru.lavafrai.maiserver
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import ru.lavafrai.maiserver.models.Group
 import ru.lavafrai.maiserver.plugins.configureRouting
 import ru.lavafrai.maiserver.plugins.configureSerialization
 import ru.lavafrai.maiserver.plugins.configureSockets
@@ -26,8 +29,8 @@ fun main() {
         pb.stepTo(downloaded)
     }*/
 
-    //val t = manager.downloadAndCacheSchedule(Group("М4О-106Б-23"))
-    //println(Json.encodeToString(t.subSchedules.find { it.weekId.number == 4 }))
+    val t = manager.downloadAndCacheSchedule(Group("М4О-106Б-23"))
+    println(Json.encodeToString(t))
 
     embeddedServer(
         Netty,

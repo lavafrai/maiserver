@@ -17,7 +17,7 @@ fun parseSchedule(group: Group) : Schedule {
 
     val schedules = weeks.mapThreaded {
         parseScheduleParseWeek(groupId, it)
-    }
+    }.sortedBy { it.weekId.number }
 
     return Schedule(groupId, schedules);
 }
