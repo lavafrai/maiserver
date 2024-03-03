@@ -94,7 +94,7 @@ fun subParseLesson(page: Element): ScheduleLesson {
 fun parseScheduleParseWeeks(groupId: GroupId): List<ScheduleWeekId> {
     val page = getSchedulePage(mapOf("group" to groupId.name))
 
-    return page.select("#collapseWeeks").select(".list-group-item").mapThreaded { parseScheduleWeek(it.text()) }
+    return page.select("#collapseWeeks").select(".list-group-item").mapThreaded { parseScheduleWeek(it.text()) }.sortedBy { it.number }
 }
 
 
