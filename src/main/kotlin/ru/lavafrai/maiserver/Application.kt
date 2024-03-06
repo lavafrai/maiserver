@@ -3,15 +3,14 @@ package ru.lavafrai.maiserver
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
-import ru.lavafrai.maiserver.models.Group
+import ru.lavafrai.mai.api.models.group.Group
 import ru.lavafrai.maiserver.plugins.configureRouting
 import ru.lavafrai.maiserver.plugins.configureSerialization
 import ru.lavafrai.maiserver.plugins.configureSockets
 
 
 fun main() {
+
 /*
     System.setProperty("socksProxyHost", "185.200.188.112");
     System.setProperty("socksProxyPort", "62708");
@@ -30,7 +29,7 @@ fun main() {
     }*/
 
     val t = manager.downloadAndCacheSchedule(Group("М4О-106Б-23"))
-    println(Json.encodeToString(t))
+    // println(Json.encodeToString(t))
 
     embeddedServer(
         Netty,

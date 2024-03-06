@@ -1,9 +1,9 @@
 package ru.lavafrai.maiserver
 
-import ru.lavafrai.maiapp.data.models.schedule.Schedule
+import ru.lavafrai.mai.api.models.group.Group
+import ru.lavafrai.mai.api.models.schedule.Schedule
 import ru.lavafrai.maiserver.cache.Cache
 import ru.lavafrai.maiserver.cache.CacheKeys
-import ru.lavafrai.maiserver.models.Group
 import ru.lavafrai.maiserver.parser.Parser
 import ru.lavafrai.maiserver.utils.mapThreaded
 import java.time.LocalDateTime

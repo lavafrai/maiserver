@@ -22,6 +22,8 @@ application {
 
 repositories {
     mavenCentral()
+
+    maven( url = "https://jitpack.io")
 }
 
 dependencies {
@@ -41,4 +43,8 @@ dependencies {
     implementation("io.ktor:ktor-server-metrics-micrometer:$ktor_version")
 
     implementation("me.tongfei:progressbar:0.10.0")
+    implementation("com.github.lavaFrai:maiapi:v1.0.1")
+    implementation("com.github.lavaFrai:exler-maiapi:v1.0.0")
+
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 }
