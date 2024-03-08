@@ -1,5 +1,6 @@
 package ru.lavafrai.maiserver
 
+import ru.lavafrai.mai.api.Api
 import ru.lavafrai.mai.api.models.group.Group
 import ru.lavafrai.mai.api.models.schedule.Schedule
 import ru.lavafrai.maiserver.cache.Cache
@@ -61,13 +62,9 @@ class ScheduleManager private constructor() {
         val cache = Cache.getInstance()
         val parser = Parser.getInstance()
 
-        val schedule = cache.getExpirableOrNull<Schedule>(CacheKeys.SCHEDULE_PREFIX + "." + group.name.toString())
-            ?: cache.storeExpirableAndReturn(
-                CacheKeys.SCHEDULE_PREFIX + "." + group.name.toString(),
-                parser.parseScheduleOrException(group)
-            )
-
-        return schedule
+        return cache.getOrExecuteAndCache(CacheKeys.SCHEDULE_PREFIX + "." + group.name.toString()) {
+            Api.getInstance().getSchedule(group)
+        }
     }
 
 

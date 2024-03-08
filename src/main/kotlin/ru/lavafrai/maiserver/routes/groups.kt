@@ -23,11 +23,9 @@ fun Route.groups() {
 
             call.respond(
                 Json.encodeToString(
-                    cache.getExpirableOrNull<List<Group>>(CacheKeys.GROUPS_LIST) ?: cache.storeExpirableAndReturn(
-                        CacheKeys.GROUPS_LIST,
-                        parser.parseGroupsListOrException(),
-                        expired = LocalDateTime.now().plusDays(14)
-                    )
+                    cache.getOrExecuteAndCache<List<Group>>(CacheKeys.GROUPS_LIST, LocalDateTime.now().plusDays(14)) {
+                        parser.parseGroupsListOrException()
+                    }
                 )
             )
         }

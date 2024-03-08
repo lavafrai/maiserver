@@ -2,10 +2,7 @@ package ru.lavafrai.maiserver.plugins
 
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
-import ru.lavafrai.maiserver.routes.groups
-import ru.lavafrai.maiserver.routes.index
-import ru.lavafrai.maiserver.routes.metrics
-import ru.lavafrai.maiserver.routes.schedule
+import ru.lavafrai.maiserver.routes.*
 
 fun Application.configureRouting() {
     routing {
@@ -13,5 +10,6 @@ fun Application.configureRouting() {
         schedule()
         index()
         metrics()
+        teacher()
     }
 }
