@@ -44,7 +44,7 @@ dependencies {
 
     implementation("me.tongfei:progressbar:0.10.0")
     implementation("com.github.lavaFrai:maiapi:v1.1.2")
-    implementation("com.github.lavaFrai:exler-maiapi:v1.0.0")
+    implementation("com.github.lavaFrai:exler-maiapi:v1.0.5")
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 }

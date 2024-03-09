@@ -5,4 +5,5 @@ enum class MetricName {
     SCHEDULE_GET,
     TEACHER_SCHEDULE_GET,
     TEACHER_LIST_GET,
+    TEACHER_INFO_GET,
 }
