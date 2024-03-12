@@ -42,6 +42,6 @@ dependencies {
     implementation("io.ktor:ktor-server-metrics-micrometer:$ktor_version")
 
     implementation("me.tongfei:progressbar:0.10.0")
-    implementation("com.github.lavaFrai:maiapi:v1.1.2")
+    implementation("com.github.lavaFrai:maiapi:v1.1.4")
     implementation("com.github.lavaFrai:exler-maiapi:v1.0.6")
 }
