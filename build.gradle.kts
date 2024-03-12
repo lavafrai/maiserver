@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "ru.lavafrai"
-version = "0.0.1"
+version = "v1.1.5"
 
 application {
     mainClass.set("ru.lavafrai.maiserver.ApplicationKt")

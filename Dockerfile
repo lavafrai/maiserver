@@ -9,7 +9,7 @@ WORKDIR /opt/app
 # RUN apk add build-base linux-headers
 
 RUN chmod +x gradlew
-RUN ./gradlew buildFatJar
+RUN ./gradlew --no-daemon buildFatJar
 
 # RUN rm -r /opt/tmp
 WORKDIR /opt/app
