@@ -36,7 +36,7 @@ class Cache {
         if (data != null) return data
 
         data = runnable()
-        storeExpirable(key, data, expired)
+        if (data != null) storeExpirable(key, data, expired)
         return data
     }
 
