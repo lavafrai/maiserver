@@ -31,4 +31,4 @@ jobs:
           script_stop: true
           timeout: 30m
           command_timeout: 60m
-          script: bash maiserver.sh
+          script: cd /home/deployer;bash maiserver.sh
