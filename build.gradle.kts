@@ -40,6 +40,7 @@ dependencies {
     implementation("org.jsoup:jsoup:1.10.2")
     implementation("io.ktor:ktor-server-html-builder:$ktor_version")
     implementation("io.ktor:ktor-server-metrics-micrometer:$ktor_version")
+    implementation("io.ktor:ktor-server-swagger:$ktor_version")
 
     implementation("com.github.lavaFrai:maiapi:v2.0.5")
     implementation("com.github.lavaFrai:exler-maiapi:v1.0.6")

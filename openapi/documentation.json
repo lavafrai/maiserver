@@ -1,0 +1,351 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "MAI Server",
+    "description": "Service to get info about schedule for MAI students and teachers",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://mai3.lavafrai.ru/"
+    }
+  ],
+  "paths": {
+    "/groups": {
+      "get": {
+        "description": "List of all groups",
+        "tags": [
+          "Schedule"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of all known groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/group"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/schedule/{group_name}": {
+      "parameters": [
+        {
+          "name": "group_name",
+          "in": "path",
+          "required": true,
+          "description": "Name of group to search",
+          "example": "М4О-106Б-23"
+        }
+      ],
+      "get": {
+        "description": "Full lessons schedule of group",
+        "tags": [
+          "Schedule"
+        ],
+        "responses": {
+          "200": {
+            "description": "Full lessons schedule of group",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/schedule"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "On group with this name didn't found",
+            "content": {
+              "application/json": {
+                "example": "{}"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/teachers": {
+      "get": {
+        "description": "List of all known teachers",
+        "tags": ["Teachers"],
+        "responses": {
+          "200": {
+            "description": "List of all known teachers",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "example": "Сычев Михаил Иванович"
+                      },
+                      "uid": {
+                        "type": "string",
+                        "example": "578c1818-1d99-11e0-9baf-1c6f65450efa"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/schedule/{teacher_uid}": {
+      "parameters": [
+        {
+          "name": "teacher_uid",
+          "in": "path",
+          "required": true,
+          "description": "Uid of teacher to search",
+          "example": "dac35a9c-0d8e-11e4-b897-005056c00008"
+        }
+      ],
+      "get": {
+        "description": "Full lessons schedule of teacher",
+        "tags": [
+          "Teachers"
+        ],
+        "responses": {
+          "200": {
+            "description": "Full lessons schedule of teacher. Important: in field \"lectors\" objects represents groups. name field is name of groups, uid is md5 of group name.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/schedule"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "On teacher with this uid didn't found",
+            "content": {
+              "application/json": {
+                "example": "{}"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "group": {
+        "type": "object",
+        "title": "Group",
+        "description": "Representation of information about students group",
+        "properties": {
+          "name": {
+            "description": "Name of group",
+            "example": "М4О-106Б-23",
+            "type": "string"
+          },
+          "fac": {
+            "type": "string",
+            "description": "Name of group's faculty",
+            "example": "Институт №4"
+          },
+          "level": {
+            "type": "string",
+            "description": "Type of this group education level",
+            "example": "Бакалавриат",
+            "enum": [
+              "Бакалавриат",
+              "Магистратура",
+              "Аспирантура",
+              "Специалитет",
+              "Базовое высшее образование",
+              "Специализированное высшее образование"
+            ]
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "schedule": {
+        "type": "object",
+        "title": "Schedule",
+        "description": "Representation of groups schedule",
+        "required": [
+          "name",
+          "created",
+          "cached",
+          "days"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of schedule eg. name of group",
+            "example": "М4О-106Б-23"
+          },
+          "created": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Time when schedule was cached to server like UTC timestamp",
+            "example": 1710692662
+          },
+          "cached": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Reserved for future use",
+            "example": 0
+          },
+          "days": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/scheduleDay"
+            }
+          }
+        }
+      },
+      "scheduleDay": {
+        "title": "ScheduleDay",
+        "description": "Representation of all lessons in day",
+        "type": "object",
+        "required": [
+          "date",
+          "day",
+          "lessons"
+        ],
+        "properties": {
+          "date": {
+            "$ref": "#/components/schemas/date"
+          },
+          "day": {
+            "description": "Day of week",
+            "type": "string",
+            "enum": [
+              "Пн",
+              "Вт",
+              "Ср",
+              "Чт",
+              "Пт",
+              "Сб",
+              "Вс"
+            ],
+            "example": "Пт"
+          },
+          "lessons": {
+            "description": "List of all this days lessons",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/lesson"
+            }
+          }
+        }
+      },
+      "date": {
+        "type": "object",
+        "title": "Date",
+        "description": "Representation of date",
+        "required": [
+          "year", "month", "day"
+        ],
+        "properties": {
+          "year": {
+            "type": "number",
+            "example": 2024
+          },
+          "month": {
+            "type": "number",
+            "example": 2
+          },
+          "day": {
+            "type": "number",
+            "example": 29
+          }
+        }
+      },
+      "lesson": {
+        "title": "Lesson",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of lesson",
+            "example": "Математический анализ"
+          },
+          "time_start": {
+            "$ref": "#/components/schemas/time"
+          },
+          "time_end": {
+            "$ref": "#/components/schemas/time"
+          },
+          "lectors": {
+            "type": "array",
+            "description": "Teachers who will teach this lesson",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Данилина Ирина Александровна"
+                },
+                "uid": {
+                  "type": "string",
+                  "example": "4e16fbff-aa98-11e6-8e0c-003048dec27f"
+                }
+              }
+            }
+          },
+          "rooms": {
+            "type": "array",
+            "description": "Rooms where this lesson will be",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "ГУК В-228"
+                },
+                "uid": {
+                  "type": "string",
+                  "example": "4e16fbff-aa98-11e6-8e0c-003048dec27f"
+                }
+              }
+            }
+          },
+          "lms": {
+            "type": "string",
+            "description": "Reserved for future use",
+            "example": "reserved"
+          },
+          "teams": {
+            "type": "string",
+            "description": "Reserved for future use",
+            "example": "reserved"
+          },
+          "other": {
+            "type": "string",
+            "description": "Reserved for future use",
+            "example": "reserved"
+          }
+        }
+      },
+      "time": {
+        "title": "Time",
+        "description": "Representation of time of day",
+        "type": "object",
+        "properties": {
+          "time": {
+            "type": "string",
+            "example": "12:15:00"
+          }
+        }
+      }
+    }
+  }
+}
