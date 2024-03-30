@@ -1,6 +1,6 @@
 package ru.lavafrai.maiserver
 
-import ru.lavafrai.mai.api.Api
+import ru.lavafrai.mai.api.MaiApi
 import ru.lavafrai.mai.api.models.group.Group
 import ru.lavafrai.mai.api.models.schedule.Schedule
 import ru.lavafrai.mai.api.models.schedule.TeacherId
@@ -28,7 +28,7 @@ class ScheduleManager private constructor() {
         val parser = Parser.getInstance()
 
         return cache.getOrExecuteAndCache(CacheKeys.SCHEDULE_PREFIX + "." + group.name.toString()) {
-            Api.getSchedule(group)
+            MaiApi.getSchedule(group)
         }
     }
 
@@ -38,12 +38,12 @@ class ScheduleManager private constructor() {
         val parser = Parser.getInstance()
 
         return cache.getOrExecuteAndCache(CacheKeys.SCHEDULE_PREFIX + "." + teacherId.uid) {
-            Api.getTeachersSchedule(teacherId)
+            MaiApi.getTeachersSchedule(teacherId)
         }
     }
 
     fun getKnownTeachers(): List<TeacherId> {
-        return Api.getTeachersList()
+        return MaiApi.getTeachersList()
     }
 
 

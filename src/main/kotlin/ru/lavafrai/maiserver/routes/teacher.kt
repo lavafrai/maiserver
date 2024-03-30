@@ -8,7 +8,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import ru.lavafrai.exler.mai.Exler
 import ru.lavafrai.exler.mai.types.teacherNameHash
-import ru.lavafrai.mai.api.Api
+import ru.lavafrai.mai.api.MaiApi
 import ru.lavafrai.maiserver.metrics.MetricName
 import ru.lavafrai.maiserver.metrics.Metrics
 
@@ -40,7 +40,7 @@ fun Route.teacher() {
         get {
             Metrics.getInstance().incrementMetric(MetricName.TEACHER_LIST_GET)
 
-            call.respondText(Json.encodeToString(Api.getTeachersList()))
+            call.respondText(Json.encodeToString(MaiApi.getTeachersList()))
         }
     }
 }

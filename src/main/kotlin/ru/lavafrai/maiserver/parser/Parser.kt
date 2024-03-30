@@ -1,16 +1,16 @@
 package ru.lavafrai.maiserver.parser
 
-import ru.lavafrai.mai.api.Api
+import ru.lavafrai.mai.api.MaiApi
 import ru.lavafrai.mai.api.models.group.Group
 import ru.lavafrai.mai.api.models.schedule.Schedule
 
 class Parser {
     fun parseGroupsListOrException(): List<Group> {
-        return Api.getGroups()
+        return MaiApi.getGroups()
     }
 
     fun parseScheduleOrException(group: Group): Schedule? {
-        return Api.getSchedule(group)
+        return MaiApi.getSchedule(group)
     }
 
 
