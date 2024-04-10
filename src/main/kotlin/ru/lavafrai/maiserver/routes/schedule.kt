@@ -6,6 +6,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import ru.lavafrai.mai.api.MaiApi
 import ru.lavafrai.mai.api.models.group.Group
 import ru.lavafrai.mai.api.models.schedule.TeacherId
 import ru.lavafrai.maiserver.ScheduleManager
@@ -32,6 +33,14 @@ fun Route.schedule() {
             schedule = ScheduleManager.getInstance().downloadAndCacheTeacherSchedule(TeacherId("", call.parameters["group"]!!))
             if (schedule != null) {
                 call.respondText(Json.encodeToString(schedule)); return@get
+            }
+
+            val teacher = MaiApi.getTeachersList().find { it.name.lowercase() == call.parameters["group"]!!.lowercase() }
+            teacher?.let {
+                schedule = ScheduleManager.getInstance().downloadAndCacheTeacherSchedule(teacher)
+                schedule?.let {
+                    call.respond(Json.encodeToString(schedule)) ; return@get
+                }
             }
 
             call.respondText("{}", status = HttpStatusCode.NotFound)
