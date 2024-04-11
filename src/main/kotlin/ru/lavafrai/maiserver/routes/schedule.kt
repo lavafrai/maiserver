@@ -35,7 +35,7 @@ fun Route.schedule() {
                 call.respondText(Json.encodeToString(schedule)); return@get
             }
 
-            val teacher = MaiApi.getTeachersList().find { it.name.lowercase() == call.parameters["group"]!!.lowercase() }
+            val teacher = MaiApi.getTeachersList().find { it.name.lowercase().replace("ё", "е") == call.parameters["group"]!!.lowercase().replace("ё", "е") }
             teacher?.let {
                 schedule = ScheduleManager.getInstance().downloadAndCacheTeacherSchedule(teacher)
                 schedule?.let {
@@ -56,7 +56,7 @@ fun Route.teacherSchedule() {
         get {
             Metrics.getInstance().incrementMetric(MetricName.SCHEDULE_GET)
 
-            val teacher = MaiApi.getTeachersList().find { it.name.lowercase() == call.parameters["group"]!!.lowercase() }
+            val teacher = MaiApi.getTeachersList().find { it.name.lowercase().replace("ё", "е") == call.parameters["group"]!!.lowercase().replace("ё", "е") }
             teacher?.let {
                 val schedule = ScheduleManager.getInstance().downloadAndCacheTeacherSchedule(teacher)
                 schedule?.let {
