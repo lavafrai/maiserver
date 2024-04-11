@@ -9,6 +9,7 @@ fun Application.configureRouting() {
     routing {
         groups()
         schedule()
+        teacherSchedule()
         index()
         metrics()
         teacher()

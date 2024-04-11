@@ -47,3 +47,36 @@ fun Route.schedule() {
         }
     }
 }
+
+fun Route.teacherSchedule() {
+    route("/teacher/schedule/{group}") {
+        val cache = Cache.getInstance()
+        val parser = Parser.getInstance()
+
+        get {
+            Metrics.getInstance().incrementMetric(MetricName.SCHEDULE_GET)
+
+            val teacher = MaiApi.getTeachersList().find { it.name.lowercase() == call.parameters["group"]!!.lowercase() }
+            teacher?.let {
+                val schedule = ScheduleManager.getInstance().downloadAndCacheTeacherSchedule(teacher)
+                schedule?.let {
+                    call.respond(Json.encodeToString(schedule)) ; return@get
+                }
+            }
+
+            var schedule = ScheduleManager.getInstance().downloadAndCacheTeacherSchedule(TeacherId("", call.parameters["group"]!!))
+            if (schedule != null) {
+                call.respondText(Json.encodeToString(schedule)); return@get
+            }
+
+            val groupName = call.parameters["group"]!!
+            schedule = ScheduleManager.getInstance().downloadAndCacheSchedule(Group(groupName))
+
+            if (schedule != null) {
+                call.respondText(Json.encodeToString(schedule)); return@get
+            }
+
+            call.respondText("{}", status = HttpStatusCode.NotFound)
+        }
+    }
+}
