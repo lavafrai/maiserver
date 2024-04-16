@@ -19,6 +19,10 @@ application {
 
 }
 
+kotlin {
+    jvmToolchain(11)
+}
+
 
 repositories {
     mavenCentral()
