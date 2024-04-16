@@ -14,7 +14,9 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
-    
+        with:
+          submodules: 'true'
+
       - name: Allow to run gradlew
         run: chmod +x gradlew
       - name: Try to build
