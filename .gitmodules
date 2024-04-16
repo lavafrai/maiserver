@@ -1,0 +1,3 @@
+[submodule "libs/maiapi"]
+	path = libs/maiapi
+	url = https://github.com/lavaFrai/maiapi

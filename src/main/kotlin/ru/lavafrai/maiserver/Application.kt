@@ -31,6 +31,7 @@ fun main() {
     val t = manager.downloadAndCacheSchedule(Group("М4О-106Б-23"))
     // println(Json.encodeToString(t))
 
+
     embeddedServer(
         Netty,
         port = 80,
