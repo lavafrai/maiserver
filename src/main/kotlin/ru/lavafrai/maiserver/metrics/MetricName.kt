@@ -7,4 +7,5 @@ enum class MetricName {
     EXLER_TEACHER_LIST_GET,
     TEACHER_LIST_GET,
     EXLER_TEACHER_INFO_GET,
+    DATA_GET,
 }
