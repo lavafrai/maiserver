@@ -43,5 +43,5 @@ dependencies {
     implementation("io.ktor:ktor-server-swagger:$ktor_version")
 
     implementation(project("libs:maiapi"))
-    implementation("com.github.lavaFrai:exler-maiapi:v1.0.7")
+    implementation(project("libs:exler-maiapi"))
 }
