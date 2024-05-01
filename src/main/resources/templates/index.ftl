@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div style="margin-top: 24px;">
-                <@buttons.button icon="download" icon_type="solid">
+                <@buttons.button icon="download" icon_type="solid" href="#" modal="#download_modal">
                     Скачать
                 </@buttons.button>
                 </div>
@@ -62,7 +62,86 @@
                     <li>Вы можете пометить работы, чтобы не забыть о предстоящих контрольных и проверочных</li>
                     <li>Даже преподаватели могут пользоваться приложением, так же есть режим для абитуриентов</li>
                 </ul>
+                <h2>
+                    Благодарности
+                </h2>
+                <ul>
+                    <li>Сбор данных: maximon0101</li>
+                    <li>Монтаж и дизайн: ArtemBay</li>
+                    <li>Тестирование: Артем Помощников</li>
+                    <li>Сотрудничество с экслером: Суворов</li>
+                </ul>
             </section>
         </main>
+        <footer>
+            <div>
+                <div>(c) 2024 - lava_frai (Владимир Курдюков)</div>
+                <div>With <i class="fa fa-heart"></i> by. @lava_frai</div>
+                <div id="footer-contacts">
+                    <a href="https://github.com/lavaFrai/mai3"><i class="fa fa-github"></i></a>
+                    <a href="mailto:lavafrai@yandex.ru"><i class="fa fa-envelope"></i></a>
+                    <a href="https://t.me/maiapp3"><i class="fa fa-telegram"></i></a>
+                </div>
+            </div>
+        </footer>
+
+        <div class="hystmodal" id="download_modal" aria-hidden="true">
+            <div class="hystmodal__wrap">
+                <div class="hystmodal__window" role="dialog" aria-modal="true">
+                    <button data-hystclose class="hystmodal__close">Close</button>
+                    <h3 style="color: var(--foreground-superinaccent); margin-bottom: 16px;">MAI app</h3>
+                    <p>Не знаете, как установить приложение на Android? <a href="https://googlegiksearch.github.io/?q=How+to+install+apk">Посмотрите тут</a></p>
+                    <hr/>
+                    <p>Как хотите загрузить?</p>
+
+                    <a href="https://t.me/maiapp3">
+                        <div class="card flex flex-row">
+                            <i class="fa-brands fa-telegram fa-2x" style="color: var(--foreground-superinaccent);"></i>
+                            <div class="flex flex-column" style="margin-left: 16px;">
+                                <h3>Telegram</h3>
+                                <p style="margin-top: 8px;">Новейшая версия из нашего телеграм канала</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://apps.rustore.ru/app/ru.lavafrai.maiapp">
+                        <div class="card flex flex-row">
+                            <img src="/static/media/rustore-light.png" style="height: 2em" class="on-light">
+                            <img src="/static/media/rustore-dark.png" style="height: 2em" class="on-dark">
+                            <div class="flex flex-column" style="margin-left: 16px;">
+                                <h3>RuStore</h3>
+                                <p style="margin-top: 8px;">Автоматическое обновление до актуальной версии</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://github.com/lavafrai/mai3">
+                        <div class="card flex flex-row">
+                            <i class="fa-brands fa-github fa-2x" style="color: var(--foreground-superinaccent);"></i>
+                            <div class="flex flex-column" style="margin-left: 16px;">
+                                <h3>GitHub</h3>
+                                <p style="margin-top: 8px;">Исходный код или новейшая сборка на GitHub</p>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a>
+                        <div class="card flex flex-row">
+                            <i class="fa-brands fa-google-play fa-2x" style="color: var(--foreground-superinaccent);"></i>
+                            <div class="flex flex-column" style="margin-left: 16px;">
+                                <h3>Play Store (Coming soon)</h3>
+                                <p style="margin-top: 8px;">Скоро мы опубликуемся и здесь</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <script>
+            const myModal = new HystModal({
+                linkAttributeName: "data-hystmodal",
+                // settings (optional). see Configuration
+            });
+        </script>
     </body>
 </html>

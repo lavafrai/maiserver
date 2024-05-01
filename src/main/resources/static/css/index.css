@@ -11,6 +11,7 @@ body, html {
     --background: #e6e6e6;
     --foreground: #111;
     --foreground-inaccent: #222;
+    --foreground-superinaccent: #444;
 
     color: var(--foreground);
     background: var(--background);
@@ -25,9 +26,10 @@ body {
 @media (prefers-color-scheme: dark) {
     body, html {
         --primary: #B0DCFF;
-        --background: #111;
+        --background: #0f0f0f;
         --foreground: #fff;
         --foreground-inaccent: #D4D4D4;
+        --foreground-superinaccent: #999;
     }
 
     body {
@@ -38,7 +40,6 @@ body {
 main {
     max-width: 900px;
     width: inherit;
-    height: 100%;
     margin: auto;
     padding: 0 20px;
 }
@@ -100,3 +101,77 @@ body::-webkit-scrollbar-thumb {
     border-radius: 4px;
     background: #fff2;
 }
+
+footer {
+    padding: 24px 0;
+    background: var(--background);
+    color: var(--foreground-inaccent);
+    font-weight: bold;
+}
+
+footer > div {
+    max-width: 900px;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#footer-contacts > a {
+    margin-left: 8px;
+    font-size: 24px;
+    color: var(--foreground-inaccent);
+}
+
+@media only screen and (max-width: 900px) {
+    footer > div {
+        flex-direction: column;
+    }
+
+    footer > div > div {
+        margin: 6px auto;
+    }
+}
+
+.hystmodal__window {
+    background: var(--background)!important;
+    color: var(--foreground-inaccent)!important;
+    opacity: 0.9!important;
+    backdrop-filter: blur(64px);
+    padding: 16px!important;
+    border-radius: 8px!important;
+}
+
+.hystmodal__close {
+    background-color: var(--foreground)!important;
+}
+
+.rustore-icon {
+    width: 2em;
+    height: 2em;
+    mask-image: url("/static/media/rustore.png");
+    mask-size: 120%;
+    mask-position: center left;
+    mask-repeat: no-repeat;
+    background: var(--foreground-superinaccent);
+}
+
+.on-light {
+    display: flex;
+}
+
+.on-dark {
+    display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+    .on-light {
+        display: none;
+    }
+
+    .on-dark {
+        display: flex;
+    }
+}
+
