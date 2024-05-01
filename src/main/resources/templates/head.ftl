@@ -1,4 +1,5 @@
 <#macro head>
+    <meta charset="utf-8">
     <link rel="stylesheet" href="/static/css/index.css">
     <link rel="stylesheet" href="/static/css/buttons.css">
     <link rel="stylesheet" href="/static/css/flex.css">
@@ -15,4 +16,14 @@
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#e6e6e6" />
     <meta name="theme-color" content="#fff" />
     <title>MAI app</title>
+
+    <meta property="og:title" content="MAI app">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mai3.lavafrai.ru">
+    <meta property="og:image" content="https://mai3.lavafrai.ru/static/maiapp.webp">
+    <meta property="og:locale" content="ru">
+    <meta property="og:site_name" content="by lava_frai">
+    <meta name="og:description" content="Приложение с информацией и расписанием для студентов и преподавателей МАИ.">
+    <meta name="description" content="Приложение с информацией и расписанием для студентов и преподавателей МАИ.">
+    <link rel="canonical" href="https://mai3.lavafrai.ru/">
 </#macro>
