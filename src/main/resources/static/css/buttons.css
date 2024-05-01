@@ -1,0 +1,34 @@
+.button {
+    padding: 10px 12px;
+    margin: 6px;
+    border-radius: 6px;
+
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.button-primary {
+    color: var(--background);
+    background: var(--primary);
+}
+
+.button-dark {
+    color: var(--foreground);
+    background: var(--background);
+    transition: all 0.3s;
+}
+
+.button-dark:hover {
+    background: #fff1;
+}
+
+.button > .button-name {
+    margin-left: 4px;
+}
+
+@media only screen and (max-width: 900px) {
+    .button-mobile > .button-name {
+        display: none;
+    }
+}

@@ -45,6 +45,7 @@ dependencies {
     implementation("io.ktor:ktor-server-html-builder:$ktor_version")
     implementation("io.ktor:ktor-server-metrics-micrometer:$ktor_version")
     implementation("io.ktor:ktor-server-swagger:$ktor_version")
+    implementation("io.ktor:ktor-server-freemarker:$ktor_version")
 
     implementation(project("libs:maiapi"))
     implementation(project("libs:exler-maiapi"))

@@ -4,33 +4,16 @@ import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import ru.lavafrai.mai.api.models.group.Group
+import ru.lavafrai.maiserver.plugins.configureFreeMarker
 import ru.lavafrai.maiserver.plugins.configureRouting
 import ru.lavafrai.maiserver.plugins.configureSerialization
 import ru.lavafrai.maiserver.plugins.configureSockets
 
 
 fun main() {
-
-/*
-    System.setProperty("socksProxyHost", "185.200.188.112");
-    System.setProperty("socksProxyPort", "62708");
-    System.setProperty("java.net.socks.username", "1bRYipniXe");
-    System.setProperty("java.net.socks.password", "W8nfocnSyy");
-    Authenticator.setDefault(ProxyAuth("1bRYipniXe", "W8nfocnSyy"))
-*/
-
     val manager = ScheduleManager.getInstance()
-    // val groupsCount = manager.getGroupsCount()
-    /*
-    val pb = ProgressBar("Loading groups...", groupsCount)
-        manager.downloadAndCacheAllSchedules { downloaded, _ ->
-        pb.extraMessage = "Downloading..."
-        pb.stepTo(downloaded)
-    }*/
 
     val t = manager.downloadAndCacheSchedule(Group("М4О-106Б-23"))
-    // println(Json.encodeToString(t))
-
 
     embeddedServer(
         Netty,
@@ -49,4 +32,5 @@ fun Application.module() {
     configureSerialization()
     configureSockets()
     configureRouting()
+    configureFreeMarker()
 }
