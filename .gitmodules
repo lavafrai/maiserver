@@ -7,3 +7,6 @@
 [submodule "libs/maidata"]
 	path = libs/maidata
 	url = https://github.com/lavaFrai/maidata
+[submodule "libs/maiApplicantsParser2024"]
+	path = libs/maiApplicantsParser2024
+	url = https://github.com/lavaFrai/maiApplicantsParser2024

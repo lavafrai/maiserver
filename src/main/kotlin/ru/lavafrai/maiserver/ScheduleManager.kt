@@ -23,7 +23,7 @@ class ScheduleManager private constructor() {
     }
 
 
-    fun downloadAndCacheSchedule(group: Group): Schedule? {
+    suspend fun downloadAndCacheSchedule(group: Group): Schedule? {
         val cache = Cache.getInstance()
         val parser = Parser.getInstance()
 
@@ -33,7 +33,7 @@ class ScheduleManager private constructor() {
     }
 
 
-    fun downloadAndCacheTeacherSchedule(teacherId: TeacherId): Schedule? {
+    suspend fun downloadAndCacheTeacherSchedule(teacherId: TeacherId): Schedule? {
         val cache = Cache.getInstance()
         val parser = Parser.getInstance()
 

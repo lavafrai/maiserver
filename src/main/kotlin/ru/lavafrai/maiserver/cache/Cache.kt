@@ -31,7 +31,7 @@ class Cache {
         }
     }
 
-    fun <T> getOrExecuteAndCache(key: String, expired: LocalDateTime = LocalDateTime.now().plusHours(DEFAULT_CACHE_EXPIRE_HOURS), runnable: () -> T): T {
+    suspend fun <T> getOrExecuteAndCache(key: String, expired: LocalDateTime = LocalDateTime.now().plusHours(DEFAULT_CACHE_EXPIRE_HOURS), runnable: suspend () -> T): T {
         var data = getExpirableOrNull<T>(key)
         if (data != null) return data
 

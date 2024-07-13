@@ -3,17 +3,22 @@ package ru.lavafrai.maiserver
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-import ru.lavafrai.mai.api.models.group.Group
-import ru.lavafrai.maiserver.plugins.configureFreeMarker
-import ru.lavafrai.maiserver.plugins.configureRouting
-import ru.lavafrai.maiserver.plugins.configureSerialization
-import ru.lavafrai.maiserver.plugins.configureSockets
+import kotlinx.coroutines.runBlocking
+import ru.lavafrai.mai.applicantsparser.ApplicantParser
+import ru.lavafrai.maiserver.cache.Cache
+import ru.lavafrai.maiserver.cache.CacheKeys
+import ru.lavafrai.maiserver.plugins.*
+import java.time.LocalDateTime
 
 
 fun main() {
     val manager = ScheduleManager.getInstance()
 
-    val t = manager.downloadAndCacheSchedule(Group("М4О-106Б-23"))
+    runBlocking {
+        val cache = Cache.getInstance()
+        cache.storeExpirableAndReturn(CacheKeys.APPLICANTS, ApplicantParser.parse(), LocalDateTime.now().plusHours(2))
+        cache.storeExpirableAndReturn(CacheKeys.APPLICATIONS, ApplicantParser)
+    }
 
     embeddedServer(
         Netty,
@@ -33,4 +38,5 @@ fun Application.module() {
     configureSockets()
     configureRouting()
     configureFreeMarker()
+    // configureCache()
 }

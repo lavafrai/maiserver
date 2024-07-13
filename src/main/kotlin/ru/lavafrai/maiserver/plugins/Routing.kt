@@ -9,6 +9,7 @@ import ru.lavafrai.maiserver.routes.*
 fun Application.configureRouting() {
     routing {
         data()
+        applicants()
         groups()
         schedule()
         teacherSchedule()
