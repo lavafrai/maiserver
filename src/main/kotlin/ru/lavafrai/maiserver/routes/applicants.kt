@@ -38,4 +38,20 @@ fun Route.applicants() {
             )
         }
     }
+
+    route("/applicant/{id}") {
+        get {
+            val id = call.parameters["id"]!!
+
+            val applicant = applicants.second.find { it.id == id }
+            if (applicant == null) {
+                call.respondText("Applicant not found", status = io.ktor.http.HttpStatusCode.NotFound)
+                return@get
+            }
+            call.respondText(
+                Json.encodeToString(applicant),
+                contentType = io.ktor.http.ContentType.Application.Json
+            )
+        }
+    }
 }
