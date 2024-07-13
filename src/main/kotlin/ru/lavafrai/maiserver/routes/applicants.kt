@@ -5,12 +5,14 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import ru.lavafrai.mai.applicantsparser.makePredictions
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter.RFC_1123_DATE_TIME
 
 
 lateinit var applications: Pair<ZonedDateTime, List<ru.lavafrai.mai.applicantsparser.Application>>
 lateinit var applicants: Pair<ZonedDateTime, List<ru.lavafrai.mai.applicantsparser.Applicant>>
+lateinit var directions: Pair<ZonedDateTime, List<ru.lavafrai.mai.applicantsparser.Direction>>
 
 fun Route.applicants() {
     route("/applicants") {
@@ -49,7 +51,7 @@ fun Route.applicants() {
                 return@get
             }
             call.respondText(
-                Json.encodeToString(applicant),
+                Json.encodeToString(applicant.makePredictions(applications.second, directions.second)),
                 contentType = io.ktor.http.ContentType.Application.Json
             )
         }

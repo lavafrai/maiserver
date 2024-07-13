@@ -13,6 +13,7 @@ import ru.lavafrai.maiserver.plugins.configureSerialization
 import ru.lavafrai.maiserver.plugins.configureSockets
 import ru.lavafrai.maiserver.routes.applicants
 import ru.lavafrai.maiserver.routes.applications
+import ru.lavafrai.maiserver.routes.directions
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
@@ -23,6 +24,7 @@ fun main() {
     runBlocking {
         applicants = ZonedDateTime.now(ZoneId.of("GMT")) to ApplicantParser.getApplicants()
         applications = ZonedDateTime.now(ZoneId.of("GMT")) to ApplicantParser.getApplications()
+        directions = ZonedDateTime.now(ZoneId.of("GMT")) to ApplicantParser.getDirections()
     }
 
     embeddedServer(
@@ -43,6 +45,7 @@ fun main() {
                 delay(1000*60*30)
                 applicants = ZonedDateTime.now(ZoneId.of("GMT")) to ApplicantParser.getApplicants()
                 applications = ZonedDateTime.now(ZoneId.of("GMT")) to ApplicantParser.getApplications()
+                directions = ZonedDateTime.now(ZoneId.of("GMT")) to ApplicantParser.getDirections()
             }
         }
     }
