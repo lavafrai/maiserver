@@ -5,7 +5,7 @@ val logback_version: String by project
 plugins {
     kotlin("jvm") version "2.0.0"
     id("io.ktor.plugin") version "2.3.8"
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.22"
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.0.0"
 }
 
 group = "ru.lavafrai"
@@ -46,6 +46,7 @@ dependencies {
     implementation("io.ktor:ktor-server-metrics-micrometer:$ktor_version")
     implementation("io.ktor:ktor-server-swagger:$ktor_version")
     implementation("io.ktor:ktor-server-freemarker:$ktor_version")
+    implementation("io.ktor:ktor-server-auto-head-response:$ktor_version")
 
     implementation(project("libs:maiapi"))
     implementation(project("libs:exler-maiapi"))

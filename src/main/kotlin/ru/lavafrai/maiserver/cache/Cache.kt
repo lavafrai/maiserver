@@ -22,13 +22,13 @@ class Cache {
 
     @Suppress("UNCHECKED_CAST")
     fun <T> getExpirableOrNull(key: String): T? {
-        synchronized(this) {
+        //synchronized(this) {
             val now = LocalDateTime.now()
             val data = cache[key] ?: return null
 
             if (data.expired < now) { return null }
             return data.value as T
-        }
+        //}
     }
 
     suspend fun <T> getOrExecuteAndCache(key: String, expired: LocalDateTime = LocalDateTime.now().plusHours(DEFAULT_CACHE_EXPIRE_HOURS), runnable: suspend () -> T): T {

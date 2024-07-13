@@ -3,21 +3,25 @@ package ru.lavafrai.maiserver
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
+import kotlinx.datetime.TimeZone
 import ru.lavafrai.mai.applicantsparser.ApplicantParser
 import ru.lavafrai.maiserver.cache.Cache
 import ru.lavafrai.maiserver.cache.CacheKeys
 import ru.lavafrai.maiserver.plugins.*
+import ru.lavafrai.maiserver.routes.applicants
+import ru.lavafrai.maiserver.routes.applications
 import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 
 fun main() {
     val manager = ScheduleManager.getInstance()
 
     runBlocking {
-        val cache = Cache.getInstance()
-        cache.storeExpirableAndReturn(CacheKeys.APPLICANTS, ApplicantParser.parse(), LocalDateTime.now().plusHours(2))
-        cache.storeExpirableAndReturn(CacheKeys.APPLICATIONS, ApplicantParser)
+        applicants = ZonedDateTime.now(ZoneId.of("GMT")) to ApplicantParser.getApplicants()
+        applications = ZonedDateTime.now(ZoneId.of("GMT")) to ApplicantParser.getApplications()
     }
 
     embeddedServer(
@@ -30,7 +34,17 @@ fun main() {
             connectionGroupSize = 12
             workerGroupSize = 12
         }
-    ).start(wait = true)
+    ).start(wait = false)
+
+    runBlocking {
+        launch {
+            while (true) {
+                delay(1000*60*30)
+                applicants = ZonedDateTime.now(ZoneId.of("GMT")) to ApplicantParser.getApplicants()
+                applications = ZonedDateTime.now(ZoneId.of("GMT")) to ApplicantParser.getApplications()
+            }
+        }
+    }
 }
 
 fun Application.module() {
