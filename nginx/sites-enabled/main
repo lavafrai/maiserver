@@ -1,0 +1,35 @@
+server {
+    listen 80;
+
+    location / {
+        proxy_pass http://landing:80/;
+    }
+
+    location /data/ {
+        proxy_pass http://data:80/;
+    }
+
+    location /groups/ {
+        proxy_pass http://api:80/groups;
+    }
+
+    location /schedule/ {
+        proxy_pass http://api:80/schedule/;
+    }
+
+    location /teacher/ {
+        proxy_pass http://api:80/teacher/;
+    }
+
+    location /teachers/ {
+        proxy_pass http://api:80/teachers;
+    }
+
+    location /exler-teachers/ {
+        proxy_pass http://api:80/exler-teachers;
+    }
+
+    location /exler-teacher/ {
+        proxy_pass http://api:80/exler-teacher/;
+    }
+}

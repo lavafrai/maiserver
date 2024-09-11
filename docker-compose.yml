@@ -1,0 +1,43 @@
+version: "3.0"
+
+services:
+  data:
+    build: ./data/
+    healthcheck:
+      test: curl -sS http://127.0.0.1 || exit 1
+      interval: 5s
+      timeout: 10s
+      retries: 3
+
+  landing:
+    build: ./landing/
+    healthcheck:
+      test: curl -sS http://127.0.0.1 || exit 1
+      interval: 5s
+      timeout: 10s
+      retries: 3
+
+  api:
+    build: ./api/
+    healthcheck:
+      test: curl -sS http://127.0.0.1/groups || exit 1
+      interval: 5s
+      timeout: 10s
+      retries: 3
+
+  nginx:
+    image: "nginx:1.27.1-bookworm"
+    ports:
+      - "80:80"
+    links:
+      - "data:data"
+      - "landing:landing"
+      - "api:api"
+    volumes:
+      - "./nginx/nginx.conf:/etc/nginx/nginx.conf"
+      - "./nginx/sites-enabled:/etc/nginx/sites-enabled"
+    healthcheck:
+      test: curl -sS http://mai3.lavafrai.ru/ || exit 1
+      interval: 5s
+      timeout: 10s
+      retries: 3

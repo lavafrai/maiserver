@@ -1,0 +1,6 @@
+.card {
+    border-radius: 8px;
+    border: 2px solid var(--foreground-superinaccent);
+    padding: 12px;
+    margin: 8px;
+}

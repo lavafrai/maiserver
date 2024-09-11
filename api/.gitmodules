@@ -1,0 +1,9 @@
+[submodule "libs/maiapi"]
+	path = libs/maiapi
+	url = https://github.com/lavaFrai/maiapi
+[submodule "libs/exler-maiapi"]
+	path = libs/exler-maiapi
+	url = https://github.com/lavaFrai/exler-maiapi
+[submodule "libs/maidata"]
+	path = libs/maidata
+	url = https://github.com/lavaFrai/maidata
