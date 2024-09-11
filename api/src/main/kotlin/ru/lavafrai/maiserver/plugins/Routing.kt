@@ -8,7 +8,6 @@ import ru.lavafrai.maiserver.routes.*
 
 fun Application.configureRouting() {
     routing {
-        data()
         groups()
         schedule()
         teacherSchedule()
@@ -16,7 +15,5 @@ fun Application.configureRouting() {
         metrics()
         teacher()
         swaggerUI(path = "docs", swaggerFile = "openapi/documentation.json")
-
-        staticResources("/static", "static")
     }
 }
