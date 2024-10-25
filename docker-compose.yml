@@ -2,6 +2,7 @@ version: "3.0"
 
 services:
   data:
+    container_name: mai-data
     build: ./data/
     healthcheck:
       test: curl -sS http://127.0.0.1 || exit 1
@@ -10,6 +11,7 @@ services:
       retries: 3
 
   landing:
+    container_name: mai-landing
     build: ./landing/
     healthcheck:
       test: curl -sS http://127.0.0.1 || exit 1
@@ -18,6 +20,7 @@ services:
       retries: 3
 
   api:
+    container_name: mai-api
     build: ./api/
     healthcheck:
       test: curl -sS http://127.0.0.1/groups || exit 1
@@ -26,6 +29,7 @@ services:
       retries: 3
 
   nginx:
+    container_name: mai-nginx
     image: "nginx:1.27.1-bookworm"
     ports:
       - "80:80"
@@ -41,3 +45,18 @@ services:
       interval: 5s
       timeout: 10s
       retries: 3
+
+  reatarter:
+    container_name: mai-restarter
+    image: docker:cli
+    restart: unless-stopped
+    volumes: ["/var/run/docker.sock:/var/run/docker.sock"]
+    entrypoint: ["/bin/sh","-c"]
+    command:
+      - |
+        while true; do
+          if [ "$$(date +'%H:%M')" = '20:00' ]; then
+            docker restart mai-api
+          fi
+          sleep 60
+        done
