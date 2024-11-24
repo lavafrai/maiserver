@@ -11,6 +11,8 @@ server {
 
     location /groups/ {
         proxy_pass http://api:80/groups;
+        proxy_hide_header Content-Type;
+        add_header Content-Type application/json;
     }
 
     location /schedule/ {
