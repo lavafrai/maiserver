@@ -8,6 +8,8 @@ server {
 
     location /data/ {
         proxy_pass http://data:80/;
+        proxy_hide_header Content-Type;
+        add_header Content-Type application/json;
     }
 
     location /groups/ {
@@ -18,21 +20,31 @@ server {
 
     location /schedule/ {
         proxy_pass http://api:80/schedule/;
+        proxy_hide_header Content-Type;
+        add_header Content-Type application/json;
     }
 
     location /teacher/ {
         proxy_pass http://api:80/teacher/;
+        proxy_hide_header Content-Type;
+        add_header Content-Type application/json;
     }
 
     location /teachers/ {
         proxy_pass http://api:80/teachers;
+        proxy_hide_header Content-Type;
+        add_header Content-Type application/json;
     }
 
     location /exler-teachers/ {
         proxy_pass http://api:80/exler-teachers;
+        proxy_hide_header Content-Type;
+        add_header Content-Type application/json;
     }
 
     location /exler-teacher/ {
         proxy_pass http://api:80/exler-teacher/;
+        proxy_hide_header Content-Type;
+        add_header Content-Type application/json;
     }
 }
