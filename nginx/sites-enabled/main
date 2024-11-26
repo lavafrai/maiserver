@@ -10,6 +10,10 @@ server {
         proxy_pass http://api:80/;
         proxy_hide_header Content-Type;
         add_header Content-Type application/json;
+
+        if ($request_method ~* "(GET|POST)") {
+          add_header "Access-Control-Allow-Origin"  *;
+        }
     }
 
     location /data/ {
