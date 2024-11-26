@@ -9,7 +9,7 @@ server {
     location ^~ /api/v1 {
         if ($request_method ~* "(GET|POST)") {
             add_header "Access-Control-Allow-Origin"  *;
-            add_header "Access-Control-Allow-Headers" *;
+            add_header "Access-Control-Allow-Headers" "Content-Type, Authorization, X-Requested-With";
         }
 
         proxy_pass http://api:80/;
