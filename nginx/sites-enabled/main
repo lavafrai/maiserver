@@ -12,8 +12,10 @@ server {
             add_header "Access-Control-Allow-Headers" "Content-Type, Authorization, X-Requested-With";
         }
 
-        proxy_pass http://api:80/;
+        proxy_hide_header Content-Type;
         add_header Content-Type application/json;
+
+        proxy_pass http://api:80/;
     }
 
     location /data/ {
