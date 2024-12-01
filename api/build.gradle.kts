@@ -37,6 +37,6 @@ dependencies {
     implementation("io.ktor:ktor-server-metrics-micrometer:$ktor_version")
     implementation("io.ktor:ktor-server-swagger:$ktor_version")
 
-    implementation("com.github.lavaFrai:maiapi:2119325453")
-    implementation("com.github.lavaFrai:exler-maiapi:fa76737765")
+    implementation("com.github.lavaFrai:maiapi:34bd976a48")
+    implementation("com.github.lavaFrai:exler-maiapi:d9fe7edd9f")
 }
