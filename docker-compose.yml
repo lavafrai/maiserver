@@ -28,6 +28,15 @@ services:
       timeout: 10s
       retries: 3
 
+  server2:
+    container_name: mai-server2
+    image: ghcr.io/lavafrai/maiserver:latest
+    healthcheck:
+      test: curl -sS http://127.0.0.1 || exit 1
+      interval: 5s
+      timeout: 10s
+      retries: 3
+
   nginx:
     container_name: mai-nginx
     image: "nginx:1.27.1-bookworm"
@@ -37,6 +46,7 @@ services:
       - "data:data"
       - "landing:landing"
       - "api:api"
+      - "server2:server2"
     volumes:
       - "./nginx/nginx.conf:/etc/nginx/nginx.conf"
       - "./nginx/sites-enabled:/etc/nginx/sites-enabled"
