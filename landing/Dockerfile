@@ -1,9 +1,10 @@
-FROM openjdk:17-jdk-alpine3.14
+FROM openjdk:25
 
 COPY . /opt/app/
 WORKDIR /opt/app
 
-RUN apk add curl
+RUN apt-get update && apt-get install -y curl
+
 RUN chmod +x gradlew
 RUN ./gradlew --no-daemon --warning-mode all buildFatJar
 
