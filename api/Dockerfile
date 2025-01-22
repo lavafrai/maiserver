@@ -1,9 +1,7 @@
-FROM openjdk:25
+FROM openjdk:22
 
 COPY . /opt/app/
 WORKDIR /opt/app
-
-RUN apt-get update && apt-get install -y curl
 
 RUN chmod +x gradlew
 RUN ./gradlew --no-daemon --warning-mode all buildFatJar
