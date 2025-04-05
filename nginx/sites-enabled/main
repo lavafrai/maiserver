@@ -42,4 +42,8 @@ server {
     location /exler-teacher/ {
         proxy_pass http://api:80/exler-teacher/;
     }
+
+    location = /donate {
+        return 301 https://lavafrai.ru/donations;
+    }
 }
