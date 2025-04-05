@@ -46,4 +46,8 @@ server {
     location = /donate {
         return 301 https://lavafrai.ru/donations;
     }
+
+    location = /thanks {
+        return 301 https://lavafrai.ru/thanks/maiapp;
+    }
 }
