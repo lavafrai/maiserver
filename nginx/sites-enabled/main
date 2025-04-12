@@ -52,7 +52,7 @@ server {
     }
 
     location /privacy_policy {
-        proxy_pass http://server2:80/api/v1/assets/privacy_policy.txt;
+        proxy_pass http://server2:80/assets/privacy_policy.txt;
     }
 
     location /support {
