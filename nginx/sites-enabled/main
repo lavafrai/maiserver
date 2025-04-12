@@ -50,4 +50,8 @@ server {
     location = /thanks {
         return 301 https://lavafrai.ru/thanks/maiapp;
     }
+
+    location /privacy_policy {
+        proxy_pass http://server2:80/api/v1/privacy_policy.txt;
+    }
 }
