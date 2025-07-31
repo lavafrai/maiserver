@@ -1,10 +1,16 @@
-FROM debian:trixie
+FROM python:3.12-slim
 
-COPY . /opt/app
 WORKDIR /opt/app
-RUN apt update
-RUN apt install -y git python3 python3-pip curl
-RUN python3 -m pip install --break-system-packages -r requirements.txt
-RUN git clone https://github.com/lavaFrai/maidata /opt/data
 
-ENTRYPOINT python3 data.py
+COPY requirements.txt ./
+RUN pip install --no-cache-dir --break-system-packages -r requirements.txt
+
+COPY . .
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends git curl && \
+    git clone https://github.com/lavaFrai/maidata /opt/data && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+CMD ["python3", "data.py"]
